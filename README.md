@@ -1,7 +1,16 @@
-## React Template
+# Todo App
+
+Aplicação feita em:
 
 - NextJS
-- ChakraUI
-- ESlint
 
-#### Made in 07/09/2022
+Seguimos o padrão de desenvolver em cima da branch `dev` e só após algumas features adicionar na main e colocar 
+em produção.
+
+
+### Tecnologias utilizadas
+
+  - EsLint
+  - ChackraUI
+
+### Aprendizados
