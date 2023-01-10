@@ -10,18 +10,24 @@ const theme = extendTheme({
     mono: "Josefin Sans, sans-serif",
   },
   colors: {
-    highlight: "#FFBA08",
-    highlight50: "rgba(255, 186, 8, 0.5)",
-    dark: {
-      black: "#000000",
-      headtext: "#47585B",
-      info: "#999999",
-      info50: "rgba(153, 153, 153, 0.5)",
-    },
+    BrightBlue: "hsl(220, 98%, 61%)",
+    CheckBackground:
+      "linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%)",
     light: {
-      white: "#FFFFFF",
-      headtext: "#F5F8FA",
-      info: "#DADADA",
+      VLGray: "hsl(0, 0%, 98%)",
+      VLGrayishBlue: "hsl(236, 33%, 92%)",
+      LGrayishBlue: "hsl(233, 11%, 84%)",
+      DGrayishBlue: "hsl(236, 9%, 61%)",
+      VDGrayishBlue: "hsl(235, 19%, 35%)",
+    },
+    dark: {
+      VDBlue: "hsl(235, 21%, 11%)",
+      VDDesaturatedBlue: "hsl(235, 24%, 19%)",
+      LGrayishBlue: "hsl(234, 39%, 85%)",
+      LGrayishBlueHover: "hsl(236, 33%, 92%)",
+      DGrayishBlue: "hsl(234, 11%, 52%)",
+      VDGrayishBlue: "hsl(233, 14%, 35%)",
+      VDGrayishBlue2: "hsl(237, 14%, 26%)",
     },
   },
 });

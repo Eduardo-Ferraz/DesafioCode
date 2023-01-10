@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Text } from "@chakra-ui/react";
+import { Flex, HStack, Text } from "@chakra-ui/react";
 
 interface ItemProps {
   bg: string;
@@ -12,9 +12,11 @@ export default function Item(props: ItemProps) {
   const { text } = props;
   const { bg } = props;
   return (
-    <>
-      <Text bg={bg}>{text}</Text>
-      <Text>{text}</Text>
-    </>
+    <Flex w="100%" bg="yellow">
+      <HStack px="4" py="2" width="50%" spacing="6">
+        <img src="/icon-check.svg" alt="Icone Check" />
+        <Text bg={bg}>{text}</Text>
+      </HStack>
+    </Flex>
   );
 }
