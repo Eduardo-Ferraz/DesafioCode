@@ -6,6 +6,10 @@ import {
   HStack,
   VStack,
   Center,
+  Input,
+  StackDivider,
+  Checkbox,
+  CheckboxGroup,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -48,17 +52,25 @@ const Home: NextPage = () => {
             {/* Buttom input */}
             <HStack my="4" px="4" py="2" width="50%" spacing="6" bg="red">
               <img src="/icon-check.svg" alt="Icone Check" />
-              <Text color="dark.LGrayishBlue" bg="">
-                Create a new todo...
-              </Text>
+              <Input
+                color="dark.LGrayishBlue"
+                bg=""
+                placeholder="Create a new todo..."
+              />
             </HStack>
 
             {/* Items list */}
-            <VStack w="50%" bg="dark.VDBlue">
-              <Item text="Texto 1" />
-              <Item text="Texto 2" />
-              <Item text="Textooooo" />
-            </VStack>
+            <CheckboxGroup colorScheme="blackAlpha">
+              <VStack
+                w="50%"
+                divider={<StackDivider borderColor="dark.DGrayishBlue" />}
+                spacing="0"
+              >
+                <Item text="Texto 1" />
+                <Item text="Texto 2" />
+                <Item text="Textoooooo" />
+              </VStack>
+            </CheckboxGroup>
           </Flex>
         </Flex>
       </body>

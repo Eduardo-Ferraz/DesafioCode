@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Flex, HStack, Text } from "@chakra-ui/react";
+import { Checkbox, Flex, HStack, Text } from "@chakra-ui/react";
 
 interface ItemProps {
   // propriedadeX: int
@@ -13,8 +13,7 @@ export default function Item(props: ItemProps) {
   return (
     <Flex w="100%" bg="dark.VDBlue">
       <HStack px="4" py="2" width="50%" spacing="6">
-        <img src="/icon-check.svg" alt="Icone Check" />
-        <Text color="white">{text}</Text>
+        <Checkbox color="green">{text}</Checkbox>
       </HStack>
     </Flex>
   );
