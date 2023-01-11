@@ -5,7 +5,6 @@ import {
   Image,
   HStack,
   VStack,
-  Center,
   Input,
   StackDivider,
   Checkbox,
@@ -31,49 +30,47 @@ const Home: NextPage = () => {
           rel="stylesheet"
         />
       </Head>
-      <body>
-        <Flex
-          bg="aliceblue"
-          w="100%"
-          h="100vh"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Flex direction="column" w="100%" alignItems="center">
-            {/* Header */}
-            <Flex py="20" width="50%" justifyContent="center" bg="green">
-              <Text fontSize="36px" as="b" color="dark.LGrayishBlue">
-                T O D O
-              </Text>
-              <Spacer />
-              <Image boxSize="32px" src="/icon-sun.svg" alt="icone de sol" />
-            </Flex>
-
-            {/* Buttom input */}
-            <HStack my="4" px="4" py="2" width="50%" spacing="6" bg="red">
-              <img src="/icon-check.svg" alt="Icone Check" />
-              <Input
-                color="dark.LGrayishBlue"
-                bg=""
-                placeholder="Create a new todo..."
-              />
-            </HStack>
-
-            {/* Items list */}
-            <CheckboxGroup colorScheme="blackAlpha">
-              <VStack
-                w="50%"
-                divider={<StackDivider borderColor="dark.DGrayishBlue" />}
-                spacing="0"
-              >
-                <Item text="Texto 1" />
-                <Item text="Texto 2" />
-                <Item text="Textoooooo" />
-              </VStack>
-            </CheckboxGroup>
+      <Flex
+        bg="aliceblue"
+        w="100%"
+        h="100vh"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Flex direction="column" w="100%" alignItems="center">
+          {/* Header */}
+          <Flex py="20" width="50%" justifyContent="center" bg="green">
+            <Text fontSize="36px" as="b" color="dark.LGrayishBlue">
+              T O D O
+            </Text>
+            <Spacer />
+            <Image boxSize="32px" src="/icon-sun.svg" alt="icone de sol" />
           </Flex>
+
+          {/* Buttom input */}
+          <HStack my="4" px="4" py="2" width="50%" spacing="6" bg="red">
+            <img src="/icon-check.svg" alt="Icone Check" />
+            <Input
+              color="dark.LGrayishBlue"
+              bg=""
+              placeholder="Create a new todo..."
+            />
+          </HStack>
+
+          {/* Items list */}
+          <CheckboxGroup colorScheme="blackAlpha">
+            <VStack
+              w="50%"
+              divider={<StackDivider borderColor="dark.DGrayishBlue" />}
+              spacing="0"
+            >
+              <Item text="Texto 1" />
+              <Item text="Texto 2" />
+              <Item text="Textoooooo" />
+            </VStack>
+          </CheckboxGroup>
         </Flex>
-      </body>
+      </Flex>
     </>
   );
 };
