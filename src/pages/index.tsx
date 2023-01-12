@@ -9,14 +9,19 @@ import {
   VStack,
   Input,
   StackDivider,
-  Checkbox,
   CheckboxGroup,
   Button,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 
 import Item from "../components/Item";
+
+interface ItemProps {
+  // propriedadeX: int
+  text: String;
+}
 
 interface ITask {
   text: String;
@@ -28,6 +33,7 @@ const Home: NextPage = () => {
   const [task, setTask] = useState<String>("");
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [tasksLeft, setTasksLeft] = useState<number>(0);
+  const [list, setList] = useState<number>(0);
 
   function handleAddTask() {
     const newTask: ITask = {
@@ -48,6 +54,16 @@ const Home: NextPage = () => {
     }
   }
 
+  function tasksInList(op: number): ITask[] {
+    switch (op) {
+      case 1:
+        return tasks.filter((item) => item.completed === false);
+      case 2:
+        return tasks.filter((item) => item.completed === true);
+      default:
+        return tasks;
+    }
+  }
   return (
     <>
       <Head>
@@ -94,17 +110,30 @@ const Home: NextPage = () => {
           </HStack>
 
           {/* Items list */}
-          <CheckboxGroup colorScheme="blackAlpha">
-            <VStack
-              w="50%"
-              divider={<StackDivider borderColor="dark.DGrayishBlue" />}
-              spacing="0"
-            >
-              {tasks.map((item) => (
-                <Item text={item.text} />
-              ))}
-            </VStack>
-          </CheckboxGroup>
+          <VStack className="TasksArea" bg="blue.600" w="50%">
+            <Flex className="Tasks" w="100%">
+              <CheckboxGroup colorScheme="blackAlpha">
+                <VStack
+                  w="100%"
+                  divider={<StackDivider borderColor="dark.DGrayishBlue" />}
+                  spacing="0"
+                >
+                  {tasksInList(list).map((item) => (
+                    <Item text={item.text} />
+                  ))}
+                </VStack>
+              </CheckboxGroup>
+            </Flex>
+            <Flex justifyContent="space-between" w="100%" p="10px">
+              <Flex>Left</Flex>
+              <SimpleGrid columns={3}>
+                <Flex>All</Flex>
+                <Button onClick={() => setList(1)}>Active</Button>
+                <Button onClick={() => setList(2)}>Completed</Button>
+              </SimpleGrid>
+              <Flex>Clear Completed</Flex>
+            </Flex>
+          </VStack>
         </Flex>
       </Flex>
     </>
