@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Flex,
   Spacer,
@@ -7,15 +9,80 @@ import {
   VStack,
   Input,
   StackDivider,
-  Checkbox,
   CheckboxGroup,
+  Button,
+  SimpleGrid,
+  StatHelpText,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 
 import Item from "../components/Item";
 
+interface ItemProps {
+  text: String;
+}
+
+interface ITask {
+  text: String;
+  completed: boolean;
+  id: number;
+}
+
 const Home: NextPage = () => {
+  const [task, setTask] = useState<String>("");
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [tasksLeft, setTasksLeft] = useState<number>(0);
+  const [list, setList] = useState<number>(0);
+
+  function handleAddTask() {
+    const newTask: ITask = {
+      text: task,
+      completed: false,
+      id: new Date().getTime(),
+    };
+    setTasks((prevState) => [...prevState, newTask]);
+    setTasksLeft(tasksLeft + 1);
+  }
+
+  // function handleRemoveTask(id : number) {
+  //   setTasks((prevState) => [...prevState, newTask]);
+  //   setTasksLeft(tasksLeft + 1);
+  // }
+
+  function handleChangeTask(id: number, isChecked: boolean) {
+    if (isChecked) {
+      setTasksLeft((prevState) => prevState - 1);
+    } else {
+      setTasksLeft((prevState) => prevState + 1);
+    }
+
+    const newTasks = tasks.map((item) => {
+      if (item.id === id) {
+        // eslint-disable-next-line no-param-reassign
+        item.completed = isChecked;
+      }
+      return item;
+    });
+
+    setTasks(newTasks);
+  }
+
+  function tasksInList(op: number): ITask[] {
+    switch (op) {
+      case 1:
+        return tasks.filter((item) => item.completed === false);
+      case 2:
+        return tasks.filter((item) => item.completed === true);
+      default:
+        return tasks;
+    }
+  }
+
+  function clearCompleted() {
+    setTasks(() => tasks.filter((item) => item.completed === false));
+  }
+
   return (
     <>
       <Head>
@@ -54,21 +121,49 @@ const Home: NextPage = () => {
               color="dark.LGrayishBlue"
               bg=""
               placeholder="Create a new todo..."
+              onChange={(e) => setTask(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleAddTask();
+                }
+              }}
             />
+            <Button type="submit" onClick={() => handleAddTask()}>
+              Add
+            </Button>
           </HStack>
 
           {/* Items list */}
-          <CheckboxGroup colorScheme="blackAlpha">
-            <VStack
-              w="50%"
-              divider={<StackDivider borderColor="dark.DGrayishBlue" />}
-              spacing="0"
-            >
-              <Item text="Texto 1" />
-              <Item text="Texto 2" />
-              <Item text="Textoooooo" />
-            </VStack>
-          </CheckboxGroup>
+          <VStack className="TasksArea" bg="blue.600" w="50%">
+            <Flex className="Tasks" w="100%">
+              <CheckboxGroup colorScheme="blackAlpha">
+                <VStack
+                  w="100%"
+                  divider={<StackDivider borderColor="dark.DGrayishBlue" />}
+                  spacing="0"
+                >
+                  {tasksInList(list).map((item) => (
+                    <Item
+                      text={item.text}
+                      onChange={(event) =>
+                        handleChangeTask(item.id, event.target.checked)
+                      }
+                      isChecked={item.completed}
+                    />
+                  ))}
+                </VStack>
+              </CheckboxGroup>
+            </Flex>
+            <Flex justifyContent="space-between" w="100%" p="10px">
+              <Flex>{tasksLeft}</Flex>
+              <SimpleGrid columns={3}>
+                <Button onClick={() => setList(0)}>All</Button>
+                <Button onClick={() => setList(1)}>Active</Button>
+                <Button onClick={() => setList(2)}>Completed</Button>
+              </SimpleGrid>
+              <Button onClick={() => clearCompleted()}>Clear Completed</Button>
+            </Flex>
+          </VStack>
         </Flex>
       </Flex>
     </>
