@@ -112,6 +112,11 @@ const Home: NextPage = () => {
               bg=""
               placeholder="Create a new todo..."
               onChange={(e) => setTask(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleAddTask();
+                }
+              }}
             />
             <Button type="submit" onClick={() => handleAddTask()}>
               Add
