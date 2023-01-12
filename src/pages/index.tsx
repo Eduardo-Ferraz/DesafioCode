@@ -12,6 +12,7 @@ import {
   CheckboxGroup,
   Button,
   SimpleGrid,
+  StatHelpText,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -19,7 +20,6 @@ import Head from "next/head";
 import Item from "../components/Item";
 
 interface ItemProps {
-  // propriedadeX: int
   text: String;
 }
 
@@ -44,6 +44,11 @@ const Home: NextPage = () => {
     setTasks((prevState) => [...prevState, newTask]);
     setTasksLeft(tasksLeft + 1);
   }
+
+  // function handleRemoveTask(id : number) {
+  //   setTasks((prevState) => [...prevState, newTask]);
+  //   setTasksLeft(tasksLeft + 1);
+  // }
 
   function handleChangeTask(id: number, isChecked: boolean) {
     if (isChecked) {
@@ -73,6 +78,11 @@ const Home: NextPage = () => {
         return tasks;
     }
   }
+
+  function clearCompleted() {
+    setTasks(() => tasks.filter((item) => item.completed === false));
+  }
+
   return (
     <>
       <Head>
@@ -151,7 +161,7 @@ const Home: NextPage = () => {
                 <Button onClick={() => setList(1)}>Active</Button>
                 <Button onClick={() => setList(2)}>Completed</Button>
               </SimpleGrid>
-              <Flex>Clear Completed</Flex>
+              <Button onClick={() => clearCompleted()}>Clear Completed</Button>
             </Flex>
           </VStack>
         </Flex>
