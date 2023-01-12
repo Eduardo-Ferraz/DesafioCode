@@ -45,13 +45,22 @@ const Home: NextPage = () => {
     setTasksLeft(tasksLeft + 1);
   }
 
-  function handleCompleteTask(id: number) {
-    setTasksLeft((prevState) => prevState - 1);
-
-    const item = tasks.find((item) => item.id === id);
-    if (item) {
-      item.completed = true;
+  function handleChangeTask(id: number, isChecked: boolean) {
+    if (isChecked) {
+      setTasksLeft((prevState) => prevState - 1);
+    } else {
+      setTasksLeft((prevState) => prevState + 1);
     }
+
+    const newTasks = tasks.map((item) => {
+      if (item.id === id) {
+        // eslint-disable-next-line no-param-reassign
+        item.completed = isChecked;
+      }
+      return item;
+    });
+
+    setTasks(newTasks);
   }
 
   function tasksInList(op: number): ITask[] {
@@ -119,15 +128,21 @@ const Home: NextPage = () => {
                   spacing="0"
                 >
                   {tasksInList(list).map((item) => (
-                    <Item text={item.text} />
+                    <Item
+                      text={item.text}
+                      onChange={(event) =>
+                        handleChangeTask(item.id, event.target.checked)
+                      }
+                      isChecked={item.completed}
+                    />
                   ))}
                 </VStack>
               </CheckboxGroup>
             </Flex>
             <Flex justifyContent="space-between" w="100%" p="10px">
-              <Flex>Left</Flex>
+              <Flex>{tasksLeft}</Flex>
               <SimpleGrid columns={3}>
-                <Flex>All</Flex>
+                <Button onClick={() => setList(0)}>All</Button>
                 <Button onClick={() => setList(1)}>Active</Button>
                 <Button onClick={() => setList(2)}>Completed</Button>
               </SimpleGrid>
