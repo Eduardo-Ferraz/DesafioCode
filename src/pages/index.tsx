@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Flex,
   Spacer,
@@ -9,13 +11,43 @@ import {
   StackDivider,
   Checkbox,
   CheckboxGroup,
+  Button,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 
 import Item from "../components/Item";
 
+interface ITask {
+  text: String;
+  completed: boolean;
+  id: number;
+}
+
 const Home: NextPage = () => {
+  const [task, setTask] = useState<String>("");
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [tasksLeft, setTasksLeft] = useState<number>(0);
+
+  function handleAddTask() {
+    const newTask: ITask = {
+      text: task,
+      completed: false,
+      id: new Date().getTime(),
+    };
+    setTasks((prevState) => [...prevState, newTask]);
+    setTasksLeft(tasksLeft + 1);
+  }
+
+  function handleCompleteTask(id: number) {
+    setTasksLeft((prevState) => prevState - 1);
+
+    const item = tasks.find((item) => item.id === id);
+    if (item) {
+      item.completed = true;
+    }
+  }
+
   return (
     <>
       <Head>
@@ -54,7 +86,11 @@ const Home: NextPage = () => {
               color="dark.LGrayishBlue"
               bg=""
               placeholder="Create a new todo..."
+              onChange={(e) => setTask(e.target.value)}
             />
+            <Button type="submit" onClick={() => handleAddTask()}>
+              Add
+            </Button>
           </HStack>
 
           {/* Items list */}
@@ -64,9 +100,9 @@ const Home: NextPage = () => {
               divider={<StackDivider borderColor="dark.DGrayishBlue" />}
               spacing="0"
             >
-              <Item text="Texto 1" />
-              <Item text="Texto 2" />
-              <Item text="Textoooooo" />
+              {tasks.map((item) => (
+                <Item text={item.text} />
+              ))}
             </VStack>
           </CheckboxGroup>
         </Flex>

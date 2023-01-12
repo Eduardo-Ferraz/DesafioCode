@@ -4,7 +4,7 @@ import { Checkbox, Flex, HStack, Text } from "@chakra-ui/react";
 
 interface ItemProps {
   // propriedadeX: int
-  text: string;
+  text: String;
 }
 
 export default function Item(props: ItemProps) {
