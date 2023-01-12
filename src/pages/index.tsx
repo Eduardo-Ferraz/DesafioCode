@@ -12,7 +12,6 @@ import {
   CheckboxGroup,
   Button,
   SimpleGrid,
-  StatHelpText,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
