@@ -91,12 +91,14 @@ const Home: NextPage = () => {
           rel="stylesheet"
         />
       </Head>
+      <Image src="bg-desktop-dark.jpg" w="100%" />
       <Flex
         bg="dark.VDBlue"
         w="100%"
         h="100vh"
         justifyContent="center"
         alignItems="center"
+        mt="-40vh"
       >
         <Flex direction="column" w="100%" alignItems="center">
           {/* Header */}
@@ -115,6 +117,7 @@ const Home: NextPage = () => {
             py="2"
             width="50%"
             spacing="6"
+            borderRadius="4"
             bg="dark.VDGrayishBlue2"
           >
             <img src="/icon-check.svg" alt="Icone Check" />
