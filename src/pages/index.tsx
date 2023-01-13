@@ -44,11 +44,6 @@ const Home: NextPage = () => {
     setTasksLeft(tasksLeft + 1);
   }
 
-  // function handleRemoveTask(id : number) {
-  //   setTasks((prevState) => [...prevState, newTask]);
-  //   setTasksLeft(tasksLeft + 1);
-  // }
-
   function handleChangeTask(id: number, isChecked: boolean) {
     if (isChecked) {
       setTasksLeft((prevState) => prevState - 1);
@@ -97,7 +92,7 @@ const Home: NextPage = () => {
         />
       </Head>
       <Flex
-        bg="aliceblue"
+        bg="dark.VDBlue"
         w="100%"
         h="100vh"
         justifyContent="center"
@@ -105,8 +100,8 @@ const Home: NextPage = () => {
       >
         <Flex direction="column" w="100%" alignItems="center">
           {/* Header */}
-          <Flex py="20" width="50%" justifyContent="center" bg="green">
-            <Text fontSize="36px" as="b" color="dark.LGrayishBlue">
+          <Flex py="20" width="50%" justifyContent="center">
+            <Text fontSize="36px" as="b" color="white">
               T O D O
             </Text>
             <Spacer />
@@ -114,11 +109,17 @@ const Home: NextPage = () => {
           </Flex>
 
           {/* Buttom input */}
-          <HStack my="4" px="4" py="2" width="50%" spacing="6" bg="red">
+          <HStack
+            my="4"
+            px="4"
+            py="2"
+            width="50%"
+            spacing="6"
+            bg="dark.VDGrayishBlue2"
+          >
             <img src="/icon-check.svg" alt="Icone Check" />
             <Input
               color="dark.LGrayishBlue"
-              bg=""
               placeholder="Create a new todo..."
               onChange={(e) => setTask(e.target.value)}
               onKeyPress={(e) => {
@@ -133,14 +134,15 @@ const Home: NextPage = () => {
           </HStack>
 
           {/* Items list */}
-          <VStack className="TasksArea" bg="blue.600" w="50%">
-            <Flex className="Tasks" w="100%">
+          <Flex
+            w="50%"
+            direction="column"
+            borderRadius="4"
+            bg="dark.DGrayishBlue"
+          >
+            <Flex w="100%">
               <CheckboxGroup colorScheme="blackAlpha">
-                <VStack
-                  w="100%"
-                  divider={<StackDivider borderColor="dark.DGrayishBlue" />}
-                  spacing="0"
-                >
+                <VStack w="100%" spacing="0">
                   {tasksInList(list).map((item) => (
                     <Item
                       text={item.text}
@@ -153,16 +155,61 @@ const Home: NextPage = () => {
                 </VStack>
               </CheckboxGroup>
             </Flex>
-            <Flex justifyContent="space-between" w="100%" p="10px">
-              <Flex>{tasksLeft}</Flex>
+            <Flex
+              w="100%"
+              p="10px"
+              justifyContent="space-between"
+              borderRadius="4"
+              bg="dark.VDGrayishBlue2"
+            >
+              <Text color="white">
+                Tasks left:
+                {tasksLeft}
+              </Text>
               <SimpleGrid columns={3}>
-                <Button onClick={() => setList(0)}>All</Button>
-                <Button onClick={() => setList(1)}>Active</Button>
-                <Button onClick={() => setList(2)}>Completed</Button>
+                <Button
+                  onClick={() => setList(0)}
+                  bg=""
+                  color="white"
+                  _hover={{
+                    background: "dark.VDGrayishBlue",
+                  }}
+                >
+                  All
+                </Button>
+                <Button
+                  onClick={() => setList(1)}
+                  bg=""
+                  color="white"
+                  _hover={{
+                    background: "dark.VDGrayishBlue",
+                  }}
+                >
+                  Active
+                </Button>
+                <Button
+                  onClick={() => setList(2)}
+                  bg=""
+                  color="white"
+                  _hover={{
+                    background: "dark.VDGrayishBlue",
+                  }}
+                >
+                  Completed
+                </Button>
               </SimpleGrid>
-              <Button onClick={() => clearCompleted()}>Clear Completed</Button>
+              <Button
+                onClick={() => clearCompleted()}
+                bg=""
+                color="white"
+                _hover={{
+                  background: "dark.VDGrayishBlue",
+                }}
+              >
+                Clear Completed
+              </Button>
             </Flex>
-          </VStack>
+          </Flex>
         </Flex>
       </Flex>
     </>

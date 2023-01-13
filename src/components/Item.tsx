@@ -1,20 +1,27 @@
 import React from "react";
 
-import { Checkbox, CheckboxProps, Flex, HStack, Text } from "@chakra-ui/react";
+import { Checkbox, CheckboxProps, Flex } from "@chakra-ui/react";
 
 interface ItemProps extends CheckboxProps {
-  // propriedadeX: int
   text: String;
 }
 
 export default function Item({ text, ...rest }: ItemProps) {
   return (
-    <Flex w="100%" bg="dark.VDBlue">
-      <HStack px="4" py="2" width="50%" spacing="6">
-        <Checkbox {...rest} color="green">
-          {text}
-        </Checkbox>
-      </HStack>
+    <Flex w="100%">
+      <Checkbox
+        w="100%"
+        marginColor="red"
+        px="4"
+        py="4"
+        bg="dark.VDGrayishBlue2"
+        color="dark.LGrayishBlue"
+        marginBottom="1px"
+        borderRadius="4"
+        {...rest}
+      >
+        {text}
+      </Checkbox>
     </Flex>
   );
 }
