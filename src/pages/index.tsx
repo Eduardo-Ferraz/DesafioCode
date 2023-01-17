@@ -131,7 +131,15 @@ const Home: NextPage = () => {
                 }
               }}
             />
-            <Button type="submit" onClick={() => handleAddTask()}>
+            <Button
+              type="submit"
+              onClick={() => handleAddTask()}
+              bg=""
+              color="white"
+              _hover={{
+                background: "dark.VDGrayishBlue",
+              }}
+            >
               Add
             </Button>
           </HStack>
@@ -160,12 +168,12 @@ const Home: NextPage = () => {
             </Flex>
             <Flex
               w="100%"
-              p="10px"
+              p="3"
               justifyContent="space-between"
               borderRadius="4"
               bg="dark.VDGrayishBlue2"
             >
-              <Text color="white">
+              <Text color="white" alignSelf="center">
                 Tasks left:
                 {tasksLeft}
               </Text>
