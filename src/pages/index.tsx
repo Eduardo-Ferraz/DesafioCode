@@ -8,14 +8,15 @@ import {
   HStack,
   VStack,
   Input,
-  StackDivider,
   CheckboxGroup,
   Button,
   SimpleGrid,
+  Show,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 
+import ButtonPerso from "../components/ButtonPerso";
 import Item from "../components/Item";
 
 interface ItemProps {
@@ -166,6 +167,8 @@ const Home: NextPage = () => {
                 </VStack>
               </CheckboxGroup>
             </Flex>
+
+            {/* List Footer */}
             <Flex
               w="100%"
               p="3"
@@ -178,47 +181,14 @@ const Home: NextPage = () => {
                 {tasksLeft}
               </Text>
               <SimpleGrid columns={3}>
-                <Button
-                  onClick={() => setList(0)}
-                  bg=""
-                  color="white"
-                  _hover={{
-                    background: "dark.VDGrayishBlue",
-                  }}
-                >
-                  All
-                </Button>
-                <Button
-                  onClick={() => setList(1)}
-                  bg=""
-                  color="white"
-                  _hover={{
-                    background: "dark.VDGrayishBlue",
-                  }}
-                >
-                  Active
-                </Button>
-                <Button
-                  onClick={() => setList(2)}
-                  bg=""
-                  color="white"
-                  _hover={{
-                    background: "dark.VDGrayishBlue",
-                  }}
-                >
-                  Completed
-                </Button>
+                <ButtonPerso text="All" onClick={() => setList(0)} />
+                <ButtonPerso text="Active" onClick={() => setList(1)} />
+                <ButtonPerso text="Completed" onClick={() => setList(2)} />
               </SimpleGrid>
-              <Button
+              <ButtonPerso
+                text="Clear Completed"
                 onClick={() => clearCompleted()}
-                bg=""
-                color="white"
-                _hover={{
-                  background: "dark.VDGrayishBlue",
-                }}
-              >
-                Clear Completed
-              </Button>
+              />
             </Flex>
           </Flex>
         </Flex>
