@@ -19,10 +19,6 @@ import Head from "next/head";
 import ButtonPerso from "../components/ButtonPerso";
 import Item from "../components/Item";
 
-interface ItemProps {
-  text: String;
-}
-
 interface ITask {
   text: String;
   completed: boolean;
@@ -169,14 +165,12 @@ const Home: NextPage = () => {
             </Flex>
 
             {/* List Footer */}
-            <Flex
+            <SimpleGrid
               w="100%"
-              p="3"
-              justifyContent="space-between"
-              borderRadius="4"
-              bg="dark.VDGrayishBlue2"
+              columns={[1, null, null, 3]}
+              alignContent="center"
             >
-              <Text color="white" alignSelf="center">
+              <Text color="white" alignSelf="center" align="center">
                 Tasks left:
                 {tasksLeft}
               </Text>
@@ -189,7 +183,7 @@ const Home: NextPage = () => {
                 text="Clear Completed"
                 onClick={() => clearCompleted()}
               />
-            </Flex>
+            </SimpleGrid>
           </Flex>
         </Flex>
       </Flex>
