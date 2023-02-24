@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState, KeyboardEvent } from "react";
 
 import {
   Flex,
@@ -29,12 +29,13 @@ interface ITask {
 }
 
 const Home: NextPage = () => {
-  const [task, setTask] = useState<String>("");
+  const [task, setTask] = useState<string>("");
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [tasksLeft, setTasksLeft] = useState<number>(0);
   const [list, setList] = useState<number>(0);
 
   function handleAddTask() {
+    if (task === "") return;
     const newTask: ITask = {
       text: task,
       completed: false,
@@ -42,14 +43,10 @@ const Home: NextPage = () => {
     };
     setTasks((prevState) => [...prevState, newTask]);
     setTasksLeft(tasksLeft + 1);
+    setTask("");
   }
 
-  // function handleRemoveTask(id : number) {
-  //   setTasks((prevState) => [...prevState, newTask]);
-  //   setTasksLeft(tasksLeft + 1);
-  // }
-
-  function handleChangeTask(id: number, isChecked: boolean) {
+  function handleCheckItem(id: number, isChecked: boolean) {
     if (isChecked) {
       setTasksLeft((prevState) => prevState - 1);
     } else {
@@ -75,6 +72,16 @@ const Home: NextPage = () => {
         return tasks.filter((item) => item.completed === true);
       default:
         return tasks;
+    }
+  }
+
+  function handleNewtaskInput(event: ChangeEvent<HTMLInputElement>) {
+    setTask(event.target.value);
+  }
+
+  function handleEnterKey(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      handleAddTask();
     }
   }
 
@@ -120,14 +127,15 @@ const Home: NextPage = () => {
               color="dark.LGrayishBlue"
               bg=""
               placeholder="Create a new todo..."
-              onChange={(e) => setTask(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleAddTask();
-                }
-              }}
+              onChange={(e) => handleNewtaskInput(e)}
+              onKeyDown={(e) => handleEnterKey(e)}
+              value={task}
             />
-            <Button type="submit" onClick={() => handleAddTask()}>
+            <Button
+              type="submit"
+              onClick={() => handleAddTask()}
+              disabled={task === ""}
+            >
               Add
             </Button>
           </HStack>
@@ -145,7 +153,7 @@ const Home: NextPage = () => {
                     <Item
                       text={item.text}
                       onChange={(event) =>
-                        handleChangeTask(item.id, event.target.checked)
+                        handleCheckItem(item.id, event.target.checked)
                       }
                       isChecked={item.completed}
                     />
