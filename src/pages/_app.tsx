@@ -21,7 +21,7 @@ const theme = extendTheme({
       VDGrayishBlue: "hsl(235, 19%, 35%)",
     },
     dark: {
-      VDBlue: "hsl(235, 21%, 11%)",
+      VDBlue: "hsl(235, 21%, 11%)", // Background
       VDDesaturatedBlue: "hsl(235, 24%, 19%)",
       LGrayishBlue: "hsl(234, 39%, 85%)",
       LGrayishBlueHover: "hsl(236, 33%, 92%)",
