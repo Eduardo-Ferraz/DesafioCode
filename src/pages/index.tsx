@@ -99,10 +99,18 @@ const Home: NextPage = () => {
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
+
+        {/* 
+          TODO:
+          Não adicionar estilos com Head e Link, veja o link abaixo
+        https://nextjs.org/docs/messages/no-stylesheets-in-head-component 
+        */}
+
+        {/* <link
           href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
           rel="stylesheet"
-        />
+        /> 
+        */}
       </Head>
       <Flex
         bg="dark.VDBlue"
@@ -112,21 +120,20 @@ const Home: NextPage = () => {
         w="100%"
         h="100vh"
         justifyContent="center"
-        alignItems="center"
+        paddingTop="5rem"
       >
         <Flex direction="column" w="70%" alignItems="center">
           {/* Header */}
-          <Flex py="20" width="50%" justifyContent="center" bg="green">
+          <Flex w="50%" justifyContent="space-between" alignItems="center">
             <Text fontSize="36px" as="b" color="dark.LGrayishBlue">
               T O D O
             </Text>
-            <Spacer />
-            <Image boxSize="32px" src="/icon-sun.svg" alt="icone de sol" />
+            <Image boxSize="1.6rem" src="/icon-sun.svg" alt="icone de sol" />
           </Flex>
 
           {/* Buttom input */}
           <HStack
-            my="4"
+            marginTop="2rem"
             px="4"
             py="2"
             width="50%"
@@ -160,6 +167,7 @@ const Home: NextPage = () => {
             bg="dark.VDDesaturatedBlue"
             w="50%"
             borderRadius="4px"
+            marginTop="1.5rem"
           >
             <Flex className="Tasks" w="100%">
               <CheckboxGroup colorScheme="blackAlpha">
