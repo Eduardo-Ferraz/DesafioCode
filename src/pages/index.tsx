@@ -1,8 +1,8 @@
 import { ChangeEvent, useState, KeyboardEvent } from "react";
 
+import { CheckCircleIcon } from "@chakra-ui/icons";
 import {
   Flex,
-  Spacer,
   Text,
   Image,
   HStack,
@@ -12,7 +12,7 @@ import {
   CheckboxGroup,
   Button,
   SimpleGrid,
-  Container,
+  Circle,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -141,7 +141,14 @@ const Home: NextPage = () => {
             bg="dark.VDDesaturatedBlue"
             borderRadius="4px"
           >
-            <img src="/icon-check.svg" alt="Icone Check" />
+            {/* <img src="/images/icon-check.svg" alt="Icone Check" /> */}
+            <Circle
+              borderColor="colors.CheckBackground"
+              borderStyle="solid"
+              borderWidth="1px"
+            >
+              <CheckCircleIcon boxSize="1.3rem" visibility="hidden" />
+            </Circle>
             <Input
               color="light.LGrayishBlue"
               bg="dark.VDDesaturatedBlue"
@@ -152,10 +159,15 @@ const Home: NextPage = () => {
               focusBorderColor="dark.VDDesaturatedBlue"
               border="none"
             />
+            {/**
+             * Coloquei o displey none no botão pois a lógica de adicionar tarefa está nele,
+             * Mas não há botão no design
+             */}
             <Button
               type="submit"
               onClick={() => handleAddTask()}
               disabled={task === ""}
+              display="none"
             >
               Add
             </Button>
@@ -191,7 +203,12 @@ const Home: NextPage = () => {
             <Flex justifyContent="space-between" w="100%" p="10px">
               <Flex>{tasksLeft}</Flex>
               <SimpleGrid columns={3}>
-                <Button onClick={() => setList(0)}>All</Button>
+                <Button
+                  onClick={() => setList(0)}
+                  bgGradient="linear(to bottom right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))"
+                >
+                  All
+                </Button>
                 <Button onClick={() => setList(1)}>Active</Button>
                 <Button onClick={() => setList(2)}>Completed</Button>
               </SimpleGrid>
