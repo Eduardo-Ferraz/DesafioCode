@@ -215,19 +215,54 @@ const Home: NextPage = () => {
                 </VStack>
               </CheckboxGroup>
             </Flex>
-            <Flex justifyContent="space-between" w="100%" p="10px">
-              <Flex>{tasksLeft}</Flex>
+
+            {/* Footer */}
+            <Flex
+              justifyContent="space-between"
+              w="100%"
+              px="10px"
+              marginTop="1px"
+              borderColor="dark.DGrayishBlue"
+              borderStyle="solid"
+              borderTopWidth="1px"
+            >
+              <Flex
+                color="dark.VDGrayishBlue"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {`${tasksLeft} items left`}
+              </Flex>
               <SimpleGrid columns={3}>
                 <Button
                   onClick={() => setList(0)}
-                  bgGradient="linear(to bottom right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))"
+                  variant="unstyled"
+                  color={list === 0 ? "BrightBlue" : "light.LGrayishBlue"}
                 >
                   All
                 </Button>
-                <Button onClick={() => setList(1)}>Active</Button>
-                <Button onClick={() => setList(2)}>Completed</Button>
+                <Button
+                  onClick={() => setList(1)}
+                  variant="unstyled"
+                  color={list === 1 ? "BrightBlue" : "light.LGrayishBlue"}
+                >
+                  Active
+                </Button>
+                <Button
+                  onClick={() => setList(2)}
+                  variant="unstyled"
+                  color={list === 2 ? "BrightBlue" : "light.LGrayishBlue"}
+                >
+                  Completed
+                </Button>
               </SimpleGrid>
-              <Button onClick={() => clearCompleted()}>Clear Completed</Button>
+              <Button
+                variant="unstyled"
+                color="light.LGrayishBlue"
+                onClick={() => clearCompleted()}
+              >
+                Clear Completed
+              </Button>
             </Flex>
           </VStack>
         </Flex>
