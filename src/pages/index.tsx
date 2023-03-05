@@ -48,9 +48,13 @@ const Home: NextPage = () => {
   }
 
   function handleCheckItem(id: number, isChecked: boolean) {
+    // A exclamação indica que certamente o objeto existe, porém, não é uma boa prática :/
     if (isChecked) {
+      document.getElementById(id.toString())!.style.textDecoration =
+        "line-through";
       setTasksLeft((prevState) => prevState - 1);
     } else {
+      document.getElementById(id.toString())!.style.textDecoration = "none";
       setTasksLeft((prevState) => prevState + 1);
     }
 
@@ -88,6 +92,14 @@ const Home: NextPage = () => {
 
   function clearCompleted() {
     setTasks(() => tasks.filter((item) => item.completed === false));
+  }
+
+  function removeItem(id: number) {
+    // Closure
+    setTasks((state) => {
+      const newTasks = state.filter((item) => item.id !== id);
+      return newTasks;
+    });
   }
 
   return (
@@ -195,6 +207,9 @@ const Home: NextPage = () => {
                         handleCheckItem(item.id, event.target.checked)
                       }
                       isChecked={item.completed}
+                      id={`${item.id}`}
+                      // eslint-disable-next-line react/jsx-no-bind
+                      removeItem={removeItem}
                     />
                   ))}
                 </VStack>
