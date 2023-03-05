@@ -91,7 +91,12 @@ const Home: NextPage = () => {
   }
 
   function clearCompleted() {
-    setTasks(() => tasks.filter((item) => item.completed === false));
+    setTasks((state) => {
+      const newTasks = state.filter((item) => item.completed === false);
+
+      setTasksLeft(() => newTasks.length);
+      return newTasks;
+    });
   }
 
   function removeItem(id: number) {
@@ -100,6 +105,7 @@ const Home: NextPage = () => {
       const newTasks = state.filter((item) => item.id !== id);
       return newTasks;
     });
+    setTasksLeft((prevState) => prevState - 1);
   }
 
   return (
