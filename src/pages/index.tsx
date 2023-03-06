@@ -1,8 +1,8 @@
 import { ChangeEvent, useState, KeyboardEvent } from "react";
 
+import { CheckCircleIcon } from "@chakra-ui/icons";
 import {
   Flex,
-  Spacer,
   Text,
   Image,
   HStack,
@@ -12,6 +12,7 @@ import {
   CheckboxGroup,
   Button,
   SimpleGrid,
+  Circle,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -47,9 +48,13 @@ const Home: NextPage = () => {
   }
 
   function handleCheckItem(id: number, isChecked: boolean) {
+    // A exclamação indica que certamente o objeto existe, porém, não é uma boa prática :/
     if (isChecked) {
+      document.getElementById(id.toString())!.style.textDecoration =
+        "line-through";
       setTasksLeft((prevState) => prevState - 1);
     } else {
+      document.getElementById(id.toString())!.style.textDecoration = "none";
       setTasksLeft((prevState) => prevState + 1);
     }
 
@@ -86,7 +91,21 @@ const Home: NextPage = () => {
   }
 
   function clearCompleted() {
-    setTasks(() => tasks.filter((item) => item.completed === false));
+    setTasks((state) => {
+      const newTasks = state.filter((item) => item.completed === false);
+
+      setTasksLeft(() => newTasks.length);
+      return newTasks;
+    });
+  }
+
+  function removeItem(id: number) {
+    // Closure
+    setTasks((state) => {
+      const newTasks = state.filter((item) => item.id !== id);
+      return newTasks;
+    });
+    setTasksLeft((prevState) => prevState - 1);
   }
 
   return (
@@ -98,50 +117,88 @@ const Home: NextPage = () => {
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
+
+        {/* 
+          TODO:
+          Não adicionar estilos com Head e Link, veja o link abaixo
+        https://nextjs.org/docs/messages/no-stylesheets-in-head-component 
+        */}
+
+        {/* <link
           href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
           rel="stylesheet"
-        />
+        /> 
+        */}
       </Head>
       <Flex
-        bg="aliceblue"
+        bg="dark.VDBlue"
+        bgImage="/images/bg-desktop-dark.jpg"
+        bgPosition="top"
+        bgRepeat="no-repeat"
         w="100%"
         h="100vh"
         justifyContent="center"
-        alignItems="center"
+        paddingTop="5rem"
       >
-        <Flex direction="column" w="100%" alignItems="center">
+        <Flex direction="column" w="70%" alignItems="center">
           {/* Header */}
-          <Flex py="20" width="50%" justifyContent="center" bg="green">
+          <Flex w="50%" justifyContent="space-between" alignItems="center">
             <Text fontSize="36px" as="b" color="dark.LGrayishBlue">
               T O D O
             </Text>
-            <Spacer />
-            <Image boxSize="32px" src="/icon-sun.svg" alt="icone de sol" />
+            <Image boxSize="1.6rem" src="/icon-sun.svg" alt="icone de sol" />
           </Flex>
 
           {/* Buttom input */}
-          <HStack my="4" px="4" py="2" width="50%" spacing="6" bg="red">
-            <img src="/icon-check.svg" alt="Icone Check" />
+          <HStack
+            marginTop="2rem"
+            px="4"
+            py="2"
+            width="50%"
+            spacing="6"
+            bg="dark.VDDesaturatedBlue"
+            borderRadius="4px"
+          >
+            {/* <img src="/images/icon-check.svg" alt="Icone Check" /> */}
+            <Circle
+              borderColor="colors.CheckBackground"
+              borderStyle="solid"
+              borderWidth="1px"
+            >
+              <CheckCircleIcon boxSize="1.3rem" visibility="hidden" />
+            </Circle>
             <Input
-              color="dark.LGrayishBlue"
-              bg=""
+              color="light.LGrayishBlue"
+              bg="dark.VDDesaturatedBlue"
               placeholder="Create a new todo..."
               onChange={(e) => handleNewtaskInput(e)}
               onKeyDown={(e) => handleEnterKey(e)}
               value={task}
+              focusBorderColor="dark.VDDesaturatedBlue"
+              border="none"
             />
+            {/**
+             * Coloquei o displey none no botão pois a lógica de adicionar tarefa está nele,
+             * Mas não há botão no design
+             */}
             <Button
               type="submit"
               onClick={() => handleAddTask()}
               disabled={task === ""}
+              display="none"
             >
               Add
             </Button>
           </HStack>
 
           {/* Items list */}
-          <VStack className="TasksArea" bg="blue.600" w="50%">
+          <VStack
+            className="TasksArea"
+            bg="dark.VDDesaturatedBlue"
+            w="50%"
+            borderRadius="4px"
+            marginTop="1.5rem"
+          >
             <Flex className="Tasks" w="100%">
               <CheckboxGroup colorScheme="blackAlpha">
                 <VStack
@@ -156,19 +213,62 @@ const Home: NextPage = () => {
                         handleCheckItem(item.id, event.target.checked)
                       }
                       isChecked={item.completed}
+                      id={`${item.id}`}
+                      // eslint-disable-next-line react/jsx-no-bind
+                      removeItem={removeItem}
                     />
                   ))}
                 </VStack>
               </CheckboxGroup>
             </Flex>
-            <Flex justifyContent="space-between" w="100%" p="10px">
-              <Flex>{tasksLeft}</Flex>
+
+            {/* Footer */}
+            <Flex
+              justifyContent="space-between"
+              w="100%"
+              px="10px"
+              marginTop="1px"
+              borderColor="dark.DGrayishBlue"
+              borderStyle="solid"
+              borderTopWidth="1px"
+            >
+              <Flex
+                color="dark.VDGrayishBlue"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {`${tasksLeft} items left`}
+              </Flex>
               <SimpleGrid columns={3}>
-                <Button onClick={() => setList(0)}>All</Button>
-                <Button onClick={() => setList(1)}>Active</Button>
-                <Button onClick={() => setList(2)}>Completed</Button>
+                <Button
+                  onClick={() => setList(0)}
+                  variant="unstyled"
+                  color={list === 0 ? "BrightBlue" : "light.LGrayishBlue"}
+                >
+                  All
+                </Button>
+                <Button
+                  onClick={() => setList(1)}
+                  variant="unstyled"
+                  color={list === 1 ? "BrightBlue" : "light.LGrayishBlue"}
+                >
+                  Active
+                </Button>
+                <Button
+                  onClick={() => setList(2)}
+                  variant="unstyled"
+                  color={list === 2 ? "BrightBlue" : "light.LGrayishBlue"}
+                >
+                  Completed
+                </Button>
               </SimpleGrid>
-              <Button onClick={() => clearCompleted()}>Clear Completed</Button>
+              <Button
+                variant="unstyled"
+                color="light.LGrayishBlue"
+                onClick={() => clearCompleted()}
+              >
+                Clear Completed
+              </Button>
             </Flex>
           </VStack>
         </Flex>
