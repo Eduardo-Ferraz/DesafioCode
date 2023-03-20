@@ -1,5 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 
+import { checkboxTheme as Checkbox } from "./checkBoxCircular";
+
 const theme = extendTheme({
   fonts: {
     body: "Josefin Sans, sans-serif",
@@ -26,6 +28,9 @@ const theme = extendTheme({
       VDGrayishBlue: "hsl(233, 14%, 35%)",
       VDGrayishBlue2: "hsl(237, 14%, 26%)",
     },
+  },
+  components: {
+    Checkbox,
   },
 });
 

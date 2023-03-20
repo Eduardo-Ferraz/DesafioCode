@@ -43,13 +43,7 @@ export default function Item({
         iconColor="light.LGrayishBlue"
         size="md"
         fontSize="large"
-        icon={
-          <Img
-            src="/images/icon-check.svg"
-            bgGradient="linear(to bottom right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))"
-            width="29px"
-          />
-        }
+        variant="circular"
       >
         {text}
       </Checkbox>

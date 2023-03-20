@@ -97,6 +97,11 @@
   resolved "https://registry.npmjs.org/@chakra-ui/anatomy/-/anatomy-2.0.6.tgz"
   integrity sha512-Vgop2FFdhVtX7BydjZdJWZAWy+DdXBU1IMaBppz6COaH+/7OXxoI2ec2bs17ehJyBO0M+ud3OLj5UCFQ79YsoQ==
 
+"@chakra-ui/anatomy@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/anatomy/-/anatomy-2.1.1.tgz#819a1458ff727157e5500a69fc26bfea6e944495"
+  integrity sha512-LUHAoqJAgxAqmyckG5bUpBrfEo1FleEyY+1A8hkWciy58gZ+h3GoY9oBpHcdo7XdHPpy3G+3hieK/7i9NLwxAw==
+
 "@chakra-ui/avatar@2.1.0":
   version "2.1.0"
   resolved "https://registry.npmjs.org/@chakra-ui/avatar/-/avatar-2.1.0.tgz"
